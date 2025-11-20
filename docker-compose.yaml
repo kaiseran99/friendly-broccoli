@@ -1,7 +1,7 @@
 services:
   nestjs:
     container_name: nestjs
-    image: nestjs:1.0.1
+    image: nestjs:1.0.2
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,3 +9,8 @@ services:
     ports:
       - "3000:3000"
     command: "node /usr/src/app/dist/main.js"
+    healthcheck:
+      test: "curl http://localhost:3000/"
+      interval: 30s
+      timeout: 10s
+      retries: 5
