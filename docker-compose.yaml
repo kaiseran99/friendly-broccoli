@@ -10,7 +10,7 @@ services:
       - "3000:3000"
     command: "node /usr/src/app/dist/main.js"
     depends_on:
-      nestjs:
+      db:
         condition: service_healthy
     healthcheck:
       test: "curl http://localhost:3000/"
@@ -18,3 +18,20 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+  db:
+    container_name: DB
+    image: "mariadb:10.11"
+    environment:
+      - MYSQL_USER=nonroot
+      - MYSQL_PASSWORD=nonroot
+      - MYSQL_DATABASE=test
+      - MYSQL_ROOT_PASSWORD=123root
+      - TZ=UTC
+    restart: unless-stopped
+    healthcheck:
+      test: ["mysql -uroot -p123root -e 'SELECT * from mysql.help_topic'"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    command: ["mysqld"]
