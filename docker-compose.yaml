@@ -13,7 +13,7 @@ services:
       db:
         condition: service_healthy
     healthcheck:
-      test: "curl http://localhost:3000/"
+      test: "curl http://nestjs:3000/"
       interval: 5s
       timeout: 5s
       retries: 5
