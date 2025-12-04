@@ -19,7 +19,7 @@ services:
       retries: 5
       start_period: 30s
   db:
-    container_name: DB
+    container_name: db
     image: "mariadb:10.11"
     environment:
       - MYSQL_USER=nonroot
@@ -29,7 +29,7 @@ services:
       - TZ=UTC
     restart: unless-stopped
     healthcheck:
-      test: ["mysql -uroot -p123root -e 'SELECT * from mysql.help_topic'"]
+      test: "mysql -uroot -p123root -e 'SELECT * from mysql.help_topic'"
       interval: 5s
       timeout: 5s
       retries: 5
