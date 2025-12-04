@@ -8,6 +8,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Update and upgrade system packages
 RUN apt update && apt upgrade -y
 
+RUN apt install -y curl
+
 # Set working directory for the application
 WORKDIR /usr/src/app
 
